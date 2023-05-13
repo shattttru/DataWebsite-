@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA TRANSFER WEBSITE TO GOOGLE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <h3>Get in touch!</h3>
+        <form method="post" id="form">
+            <div id="res" style="color: green;font-size: 14px;"></div>
+          <div class="form-outer">
+            <label>Name</label>
+            <input type="text" name="name">
+          </div> 
+          
+          <div class="form-outer">
+            <label>Email</label>
+            <input type="email" name="email">
+          </div> 
+
+          <div class="form-outer">
+            <label>Phone</label>
+            <input type="text" name="phone">
+          </div> 
+
+          <div class="form-outer">
+          <button name="btn">Submit</button>
+         </div>
+        </form>
+    </div>
+
+</body>
+<script>
+    let url='https://script.google.com/macros/s/AKfycbyBtgxhURd1qbPqZnnOZTb5b9X_7h2MrmvONnO5uDwruK9iF_i5eSf2V9pRa6TVZAJLdA/exec'
+    let form=document.querySelector('#form'); 
+    form.addEventListener("submit",(e)=>{
+        e.target.btn.innerHTML="Submitting....";
+        let d=new FormData(form);
+        fetch(url,{
+            method:"POST", 
+            body:d
+        }).then((res)=>res.text()).then((finalRes)=>{
+            e.target.btn.innerHTML="Submit"
+            document.getElementById("res").innerHTML=finalRes;
+            form.reset();
+            setTimeout(()=>{
+                document.getElementById("res").innerHTML='';
+            },5000)
+        })
+        e.preventDefault();
+    }) 
+    </script>
+</html>
